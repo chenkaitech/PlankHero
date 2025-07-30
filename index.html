@@ -1,127 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PlankHero - Minimalist Plank Timer</title>
+<title>PlankHero · 极简平板支撑计时器</title>
+<meta name="description" content="PlankHero — Minimal plank timer with visual & sound cues. 极简平板支撑计时器，带视觉和声音提示。">
+<link rel="icon" href="favicon.ico">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f7f7f7;
-    color: #333;
-  }
-  header {
-    background-color: #7e3ff2;
-    color: white;
-    text-align: center;
-    padding: 1.5em 1em;
-  }
-  header h1 {
-    margin: 0;
-  }
-  header p {
-    margin: 0.5em 0 0 0;
-    font-size: 1.1em;
-  }
-  section {
-    max-width: 960px;
-    margin: 2em auto;
-    padding: 0 1em;
-  }
-  .intro {
-    text-align: center;
-    margin-bottom: 2em;
-  }
-  .intro p {
-    font-size: 1.1em;
-    line-height: 1.6;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1em;
-    margin-top: 2em;
-  }
-  .screenshot {
-    width: 100%;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  .features {
-    margin-top: 2em;
-  }
-  .features h2 {
-    color: #7e3ff2;
-  }
-  .features ul {
-    line-height: 1.8;
-  }
-  .download-btn {
-    display: block;
-    margin: 2em auto 0;
-    background-color: #7e3ff2;
-    color: white;
-    text-decoration: none;
-    padding: 0.75em 1.5em;
-    border-radius: 4px;
-    font-size: 1.1em;
-    width: max-content;
-  }
-  .download-btn:hover {
-    background-color: #5e2cb2;
-  }
-  footer {
-    text-align: center;
-    padding: 2em;
-    font-size: 0.9em;
-    color: #777;
-  }
-
-  @media (max-width: 600px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
+:root{
+  --bg:#0F1219; --surface:#151926; --text:#F0F3FA; --text2:#BAC2D6;
+  --blue:#7DA6FF; --green:#2ECC71; --warn:#FF7043; --gold:#FFD54F;
+  --divider:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Helvetica, Arial, Noto Sans, "PingFang SC","Hiragino Sans GB","Microsoft Yahei",sans-serif;}
+a{color:var(--blue);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.brand img.icon{width:40px;height:40px;border-radius:12px}
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-links a{color:var(--text2);font-weight:600}
+.nav-links a:hover{color:var(--text)}
+.lang-switch{display:flex;gap:8px;background:var(--surface);border-radius:12px;padding:6px}
+.lang-switch button{all:unset;cursor:pointer;padding:6px 14px;border-radius:10px;color:var(--text2);font-weight:600}
+.lang-switch button.active{background:var(--blue);color:#0B1220}
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:36px;align-items:center;margin-top:40px}
+.hero h1{font-size:40px;line-height:1.1;margin:0 0 16px}
+.hero p.lead{color:var(--text2);font-size:18px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.button{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#0B1220;font-weight:700;
+  padding:14px 22px;border-radius:14px;box-shadow:0 10px 30px rgba(125,166,255,.25);}
+.button.ghost{background:transparent;color:var(--text);border:1px solid var(--divider)}
+.card{background:var(--surface);border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.section{margin-top:80px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.tag{display:inline-block;padding:6px 10px;border-radius:8px;font-size:13px;background:rgba(125,166,255,.16);color:var(--blue)}
+.sample{width:100%;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.35);background:#0f1118;aspect-ratio:9/19.5;object-fit:cover}
+.footer{margin-top:80px;color:var(--text2);font-size:14px;border-top:1px solid var(--divider);padding:32px 0}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.gallery img{width:100%;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.35);background:#0f1118;aspect-ratio:9/19.5;object-fit:cover}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;background:#0f1118;border:1px solid var(--divider);color:var(--text2);font-size:14px}
+@media (max-width:960px){ .hero{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
+<div class="container">
+  <nav>
+    <div class="brand">
+      <img class="icon" src="icon.png" alt="PlankHero icon">
+      <span>PlankHero</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <div class="nav-links">
+        <a href="#features" data-en="Features" data-zh="功能"></a>
+        <a href="#screens" data-en="Screenshots" data-zh="界面"></a>
+        <a href="#privacy" data-en="Privacy" data-zh="隐私"></a>
+        <a href="#support" data-en="Support" data-zh="支持"></a>
+      </div>
+      <div class="lang-switch">
+        <button id="btn-en" class="active">English</button>
+        <button id="btn-zh">中文</button>
+      </div>
+    </div>
+  </nav>
 
-<header>
-  <h1>PlankHero</h1>
-  <p>Minimalist plank timer with visual & sound cues</p>
-</header>
+  <section class="hero">
+    <div>
+      <h1 data-en="Minimal plank timer with visual & sound cues"
+          data-zh="极简平板支撑计时器，带视觉和声音提示"></h1>
+      <p class="lead" data-en="Challenge yourself to hold that plank longer — visual cues, records & motivation in one minimalist app!"
+         data-zh="挑战自我，坚持更久，极简平板支撑记录助手！"></p>
+      <div class="cta">
+        <a href="https://apps.apple.com/app/id000000" class="button" data-en="Coming soon" data-zh="即将上架"></a>
+        <a href="#features" class="button ghost" data-en="Learn more" data-zh="了解功能"></a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="sample" src="plank_screen1.png" data-en-src="plank_screen1.png" data-zh-src="plank_screen1_zh.png" alt="App screenshot">
+    </div>
+  </section>
 
-<section>
-  <div class="intro">
-    <p>
-      PlankHero helps you push your limits, stay disciplined, and even have a little fun while doing planks.  
-      Designed for fitness beginners, office workers, and anyone who enjoys challenging themselves at home.
-    </p>
-  </div>
+  <section id="features" class="section">
+    <h2 data-en="Core features" data-zh="核心功能"></h2>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card">
+        <div class="tag" data-en="Timer modes" data-zh="计时模式"></div>
+        <h3 style="margin:12px 0" data-en="Count down or up" data-zh="倒计时 & 正计时"></h3>
+        <p class="text2" data-en="Choose how you like to track your plank."
+           data-zh="自由选择喜欢的计时方式。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Color cues" data-zh="颜色提示"></div>
+        <h3 style="margin:12px 0" data-en="Green → Yellow → Red" data-zh="绿→黄→红 渐变"></h3>
+        <p class="text2" data-en="The circle changes color as time progresses."
+           data-zh="时间越长颜色越热，挑战自我极限。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Sound alerts" data-zh="声音提示"></div>
+        <h3 style="margin:12px 0" data-en="Stay focused" data-zh="保持专注"></h3>
+        <p class="text2" data-en="Subtle beeps signal milestones so you don’t stare at the screen."
+           data-zh="细微提示音提醒时间，无需盯屏。"></p>
+      </div>
+    </div>
 
-  <div class="grid">
-    <img src="1.png" alt="PlankHero Screenshot 1" class="screenshot">
-    <img src="2.png" alt="PlankHero Screenshot 2" class="screenshot">
-  </div>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card">
+        <div class="tag" data-en="Personal best" data-zh="历史最佳"></div>
+        <h3 style="margin:12px 0" data-en="Auto save records" data-zh="自动保存记录"></h3>
+        <p class="text2" data-en="Your longest plank is saved automatically."
+           data-zh="历史最佳自动保存，见证进步。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Motivation" data-zh="鼓励语录"></div>
+        <h3 style="margin:12px 0" data-en="Fun quotes" data-zh="随机语录"></h3>
+        <p class="text2" data-en="Get a motivational (or cheeky) quote after each session."
+           data-zh="每次完成后随机显示鼓励/吐槽语。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Upgrade" data-zh="付费升级"></div>
+        <h3 style="margin:12px 0" data-en="$0.99 unlock skins & remove ads" data-zh="¥8 解锁皮肤&去广告"></h3>
+        <p class="text2" data-en="More color themes • custom quotes • ad-free."
+           data-zh="更多配色 • 个性语录 • 无广告体验。"></p>
+      </div>
+    </div>
+  </section>
 
-  <div class="features">
-    <h2>Features</h2>
-    <ul>
-      <li>✔️ Countdown & count-up modes</li>
-      <li>✔️ Color-changing timer circle (green → yellow → red)</li>
-      <li>✔️ Motivational & cheeky quotes after each session</li>
-      <li>✔️ Personal best tracking</li>
-      <li>💰 Unlock skins & custom quotes + remove ads for $0.99</li>
-    </ul>
-  </div>
+  <section id="screens" class="section">
+    <h2 data-en="Screenshots" data-zh="界面预览"></h2>
+    <p class="lead" data-en="Replace the images below with your actual screenshots."
+       data-zh="将下方占位图替换为真实截图。"></p>
+    <div class="gallery" style="margin-top:16px">
+      <img src="plank_screen1.png" data-en-src="plank_screen1.png" data-zh-src="plank_screen1_zh.png" alt="s1">
+      <img src="plank_screen2.png" data-en-src="plank_screen2.png" data-zh-src="plank_screen2_zh.png" alt="s2">
+      <img src="plank_screen3.png" data-en-src="plank_screen3.png" data-zh-src="plank_screen3_zh.png" alt="s3">
+      <img src="plank_screen4.png" data-en-src="plank_screen4.png" data-zh-src="plank_screen4_zh.png" alt="s4">
+    </div>
+  </section>
 
-  <a href="#" class="download-btn">Coming soon on the App Store</a>
-</section>
+  <section class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h2 id="privacy" data-en="Privacy" data-zh="隐私"></h2>
+        <p class="text2" data-en="PlankHero does not collect personally identifiable information. Records stay on your device."
+           data-zh="PlankHero 不收集任何个人身份信息；记录仅保存在本地设备。"></p>
+      </div>
+      <div class="card">
+        <h2 id="support" data-en="Support" data-zh="支持"></h2>
+        <p class="text2" data-en="Questions or feedback? Email us or open an issue on GitHub."
+           data-zh="有问题或建议？欢迎邮件联系，或在 GitHub 提交 Issue。"></p>
+        <p><a href="mailto:support@example.com">support@example.com</a></p>
+        <p>
+          <a href="https://github.com/chenkaitech/PlankHero" target="_blank" rel="noopener"
+             data-en="GitHub Repository" data-zh="GitHub 仓库"></a><br>
+          <a href="https://github.com/chenkaitech/PlankHero/issues" target="_blank" rel="noopener"
+             data-en="Report an issue on GitHub" data-zh="在 GitHub 提交问题"></a>
+        </p>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  &copy; 2025 PlankHero. All rights reserved.
-</footer>
+  <footer class="footer">
+    <div class="grid-2">
+      <div>
+        <strong>PlankHero</strong><br>
+        <span data-en="© 2025 PlankHero Team. All rights reserved."
+              data-zh="© 2025 PlankHero 团队。保留所有权利。"></span>
+      </div>
+      <div style="text-align:right">
+        <a href="#privacy" data-en="Privacy Policy" data-zh="隐私政策"></a> ·
+        <a href="#support" data-en="Support" data-zh="支持"></a>
+      </div>
+    </div>
+  </footer>
+</div>
 
+<script>
+function swapLangImages(lang){
+  document.querySelectorAll("img[data-en-src]").forEach(img=>{
+    const src = img.getAttribute(lang==="zh" ? "data-zh-src" : "data-en-src");
+    if(src) img.setAttribute("src", src);
+  });
+}
+function setLang(lang){
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    const text = el.getAttribute(lang === "zh" ? "data-zh" : "data-en");
+    if(text!==null){ el.textContent = text; }
+  });
+  document.getElementById("btn-en").classList.toggle("active", lang==="en");
+  document.getElementById("btn-zh").classList.toggle("active", lang==="zh");
+  localStorage.setItem("plank-lang", lang);
+  swapLangImages(lang);
+}
+document.getElementById("btn-en").onclick=()=>setLang("en");
+document.getElementById("btn-zh").onclick=()=>setLang("zh");
+const saved = localStorage.getItem("plank-lang") || (navigator.language.startsWith("zh")?"zh":"en");
+setLang(saved);
+</script>
 </body>
 </html>
